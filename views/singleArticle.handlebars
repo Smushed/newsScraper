@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="article-display text-center">
+                <a href="{{singleArticle.link}}" target="_blank">{{singleArticle.title}}</a>
+                <br>
+                {{#if singleArticle.UserComment}}
+                    <h3 class="text-center">Comment:</h3>
+                    <div class="text-center">{{singleArticle.UserComment}}</div>
+                {{/if}}
+                <textarea></textarea>
+                <br>
+                <button class="btn btn-success btn-sm write-comment" data-id="{{singleArticle.id}}">
+                    Comment
+                </button>
+            </div>
+            <a href="/">
+                <button class="btn btn-secondary">Back To Home</button>
+            </a>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+
+<script src="/js/app.js"></script>

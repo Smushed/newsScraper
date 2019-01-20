@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="articles">
+                <h1 class="text-center">Articles:</h1>
+                {{#each data}}
+                    <div class="single-article text-center">
+                        <a href="{{this.link}}" target="_blank">{{this.title}}</a>
+                        <br>
+                        <a href="/article/{{this.id}}">
+                            <button class="btn btn-success btn-sm write-comment">
+                                Make / Show Comment
+                            </button>
+                        </a>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
