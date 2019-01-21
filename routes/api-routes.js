@@ -14,7 +14,8 @@ module.exports = app => {
     app.put("/scrape", async function (req, res) {
         const status = await scraper.scrapeArticles();
         if (status === 200) {
-            console.log("Scrape Complete")
+            //Ends the Ajax request, which then goes to the front end and reloads the websit to get the scraped articles to show
+            res.end();
         };
     });
 
