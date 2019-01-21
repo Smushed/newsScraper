@@ -2,10 +2,11 @@ const db = require(`../models`);
 const scraper = require(`../handlers/scraper`);
 
 module.exports = app => {
-    // Route for saving/updating an Article's associated Note
-    app.post("/articles/:id", async function (req, res) {
-        const singleArticle = await scraper.postComment(req.body);
-        res.render(`singleArticle`, { singleArticle });
+    // Route for posting the comment and then populating the new comment and displaying it to the screen
+    app.post(`/article/:id`, async function (req, res) {
+        await scraper.postComment(req.body, req.params.id);
+        //Tells the webpage that the ajax request is over
+        res.end();
     });
 
 

@@ -15,7 +15,7 @@ module.exports = app => {
     // Route for grabbing a specific Article by id, populate it with its note
     app.get("/article/:id", async (req, res) => {
         // Using the id passed in the id parameter, prepare a query that finds the matching one in our db and populate all of the notes associated with it
-        const singleArticle = await db.Article.findOne({ _id: req.params.id }).populate("UserComment");
+        const singleArticle = await db.Article.findOne({ _id: req.params.id }).populate("userComment");
         res.render(`singleArticle`, { singleArticle });
     });
 

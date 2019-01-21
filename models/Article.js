@@ -13,7 +13,7 @@ var ArticleSchema = new Schema({
     },
     userComment: {
         type: Schema.Types.ObjectId,
-        ref: "userComment"
+        ref: "UserComment"
     }
 });
 

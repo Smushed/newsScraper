@@ -3,10 +3,10 @@ $(`.write-comment`).on(`click`, function () {
     // Grab the id associated with the article from the submit button
     const thisId = $(this).attr(`data-id`);
 
-    // Run a POST request to change the note, using what's entered in the inputs
+    // Run a POST request to change the comment using the article ID
     $.ajax({
         method: `POST`,
-        url: `/articles/${thisId}`,
+        url: `/article/${thisId}`,
         data: {
             // Value taken from title input
             name: $(`.name`).val(),
@@ -14,15 +14,8 @@ $(`.write-comment`).on(`click`, function () {
             body: $(`.userComment`).val()
         }
     })
-        // With that done
-        .then(function (data) {
-            // Log the response
-            console.log(data);
-            // Empty the notes section
-            $(`#notes`).empty();
+        .then(() => {
+            //Refreshes the page once the ajax request is complete so the comment is diaplayed
+            location.reload();
         });
-
-    // Also, remove the values entered in the input and textarea for note entry
-    $(`.name`).val(``);
-    $(`.userComment`).val(``);
 });
