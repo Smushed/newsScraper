@@ -12,12 +12,12 @@ module.exports = {
     },
     scrapeArticles: async () => {
 
-        const response = await axios.get("https://news.ycombinator.com/");
+        const response = await axios.get(`https://news.ycombinator.com/`);
         const $ = cheerio.load(response.data);
         const articleArray = [];
 
         //Goes through all the links with the class of storylink and adds them all to an array
-        await $("a.storylink").each(function (i, element) {
+        await $(`a.storylink`).each(function (i, element) {
             const result = {};
             result.title = $(element).text();
             result.link = $(element).attr("href");
@@ -25,6 +25,7 @@ module.exports = {
         });
 
         //Must be a for loop to make the code become synchronous while logging to the database
+        //Not sure if it's better to query the database for each article or to grab all articles then run a loop to check for duplicates
         for (const article of articleArray) {
             const foundArticle = await db.Article.findOne({ title: article.title })
             if (!foundArticle) {
