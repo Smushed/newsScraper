@@ -1,5 +1,5 @@
 const scraper = require(`../handlers/scraper`);
-var db = require("../models");
+var db = require(`../models`);
 
 module.exports = app => {
     //Gets the page to load and queries the database to get the burgers to display
@@ -13,14 +13,14 @@ module.exports = app => {
     });
 
     // Route for grabbing a specific Article by id, populate it with its note
-    app.get("/article/:id", async (req, res) => {
+    app.get(`/article/:id`, async (req, res) => {
         // Using the id passed in the id parameter, prepare a query that finds the matching one in our db and populate all of the notes associated with it
-        const singleArticle = await db.Article.findOne({ _id: req.params.id }).populate("userComment");
+        const singleArticle = await db.Article.findOne({ _id: req.params.id }).populate(`userComment`);
         res.render(`singleArticle`, { singleArticle });
     });
 
     // Route for getting all Articles from the db
-    app.get("/articles", function (req, res) {
+    app.get(`/articles`, function (req, res) {
         // Grab every document in the Articles collection
         db.Article.find({})
             .then(function (dbArticle) {

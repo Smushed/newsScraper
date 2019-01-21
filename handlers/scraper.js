@@ -15,15 +15,19 @@ module.exports = {
         const response = await axios.get("https://news.ycombinator.com/");
         const $ = cheerio.load(response.data);
 
-        $("a.storylink").each(async function (i, element) {
+        await Promise.all($("a.storylink").each(async function (i, element) {
             const result = {};
 
             result.title = $(element).text();
             result.link = $(element).attr("href");
 
-            // Save these results in an object that we'll push into the results array we defined earlier
-            db.Article.create(result, (err, data) => { console.log(data) });
-        });
+            // Check to see if the article is already in the database
+            // If not save it into the database
+            const foundArticle = await db.Article.findOne({ title: result.title })
+            if (!foundArticle) {
+                await db.Article.create(result, (err, data) => { console.log(data) });
+            }
+        }));
         return 200;
     },
     postComment: async (newComment, articleId) => {

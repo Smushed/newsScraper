@@ -9,12 +9,13 @@ module.exports = app => {
         res.end();
     });
 
-
-    // A GET route for scraping the echoJS website
-    app.get("/scrape", function (req, res) {
-        if (scraper.scrapeArticles() == 200) {
-            res.redirect(`/`)
-        }
+    //Goes to https://news.ycombinator.com and scrapes all the articles from the site
+    //It checks the database if the article was already in there and does not save them if they are
+    app.put("/scrape", async function (req, res) {
+        const status = await scraper.scrapeArticles();
+        if (status === 200) {
+            console.log("Scrape Complete")
+        };
     });
 
 }

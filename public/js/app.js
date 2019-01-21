@@ -1,4 +1,16 @@
-// When you click the savenote button
+//Scrape articles button
+$(`.scrape-articles`).on(`click`, function () {
+    $.ajax({
+        method: `PUT`,
+        url: `/scrape`
+    }).then(() => {
+        //Refreshes the page once the ajax request is complete so the new articles are displayed
+        location.reload();
+    })
+});
+
+// When you click the write comment button
+// Each article can have one comment on each
 $(`.write-comment`).on(`click`, function () {
     // Grab the id associated with the article from the submit button
     const thisId = $(this).attr(`data-id`);
@@ -15,7 +27,7 @@ $(`.write-comment`).on(`click`, function () {
         }
     })
         .then(() => {
-            //Refreshes the page once the ajax request is complete so the comment is diaplayed
+            //Refreshes the page once the ajax request is complete so the comment is displayed
             location.reload();
         });
 });

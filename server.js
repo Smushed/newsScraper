@@ -1,12 +1,13 @@
-var express = require("express");
-var logger = require("morgan");
+const express = require("express");
+const logger = require("morgan");
 
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsScraper";
 
-var PORT = 3000;
+const PORT = 3000;
 
 // Initialize Express
-var app = express();
+const app = express();
 
 // Configure middleware
 
@@ -24,7 +25,7 @@ app.engine(`handlebars`, exphbs({ defaultLayout: `main` }));
 app.set(`view engine`, `handlebars`);
 
 // Connect to the Mongo DB
-mongoose.connect(`mongodb://localhost/newsScraper`, { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 //Importing the routes
 require(`./routes/api-routes.js`)(app);
