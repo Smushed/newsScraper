@@ -8,7 +8,7 @@ const cheerio = require(`cheerio`);
 module.exports = {
     getScrapedData: async () => {
         const articles = await db.Article.find({});
-        return await articles
+        return articles
     },
     scrapeArticles: async () => {
 
@@ -29,16 +29,42 @@ module.exports = {
         for (const article of articleArray) {
             const foundArticle = await db.Article.findOne({ title: article.title })
             if (!foundArticle) {
-                await db.Article.create(article, (err, data) => { console.log(data) });
+                await db.Article.create(article, (err, data) => { console.log("Article Added") });
             }
         }
 
         return 200
     },
     postComment: async (newComment, articleId) => {
-        // Create a new note and pass the req.body to the entry
-        const newUserComment = await db.UserComment.create(newComment);
-        const updatedArticle = await db.Article.findOneAndUpdate({ _id: articleId }, { userComment: newUserComment._id });
-        return updatedArticle;
+        try {
+            // Create a new note and pass the req.body to the entry
+            const newUserComment = await db.UserComment.create(newComment);
+            const updatedArticle = await db.Article.findOneAndUpdate({ _id: articleId }, { userComment: newUserComment._id });
+            return updatedArticle;
+        } catch (err) {
+            return 500;
+        }
+    },
+    deleteAllArticles: async () => {
+        let status = 0;
+        await db.Article.remove({}, function (err) {
+            if (err) {
+                status = 500;
+            } else {
+                status = 200;
+            };
+        });
+        return status
+    },
+    deleteSingleArticle: async (articleId) => {
+        let status = 0;
+        await db.Article.deleteOne({ _id: articleId }, function (err) {
+            if (err) {
+                status = 500;
+            } else {
+                status = 200;
+            };
+        });
+        return status;
     }
 };

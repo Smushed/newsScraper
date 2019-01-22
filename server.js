@@ -24,7 +24,7 @@ app.engine(`handlebars`, exphbs({ defaultLayout: `main` }));
 app.set(`view engine`, `handlebars`);
 
 // Connect to the Mongo DB
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 //Importing the routes
 require(`./routes/api-routes.js`)(app);

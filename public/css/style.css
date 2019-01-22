@@ -1,7 +1,18 @@
 .single-article {
     margin-top: 25px;
     border: 2px solid darkgrey;
+    border-radius: 5px;
+    background: oldlace;
+    width: 750px;
+    margin-left: 50%;
+    transform: translateX(-50%)
 }
 .write-comment {
     margin-bottom: 5px;
+}
+.show-comment {
+    margin-bottom: 5px;
+}
+body {
+    background: lightskyblue;
 }

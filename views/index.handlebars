@@ -4,18 +4,24 @@
         <div class="col-8">
             <div class="articles">
                 <button class="btn btn-primary scrape-articles">Scrape Articles</button>
-                <h1 class="text-center">Articles:</h1>
-                {{#each data}}
-                <div class="single-article text-center">
-                    <a href="{{this.link}}" target="_blank">{{this.title}}</a>
-                    <br>
-                    <a href="/article/{{this.id}}">
-                        <button class="btn btn-success btn-sm write-comment">
-                            Make / Show Comment
-                        </button>
-                    </a>
-                </div>
-                {{/each}}
+                <button class="btn btn-danger delete-articles">Delete Articles</button>
+                {{#if data}}
+                    <h1 class="text-center">Articles:</h1>
+                    <h4 class="text-center">Brought to you by: news.ycombinator</h4>
+                    {{#each data}}
+                        <div class="single-article text-center">
+                            <a href="{{this.link}}" target="_blank">{{this.title}}</a>
+                            <br>
+                            <a href="/article/{{this.id}}">
+                                <button class="btn btn-success btn-sm show-comment">
+                                    Make / Show Comment
+                                </button>
+                            </a>
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <h2 class="text-center">There seems to be nothing here.. click Scrape Articles above to get data</h2>
+                {{/if}}
             </div>
         </div>
         <div class="col-2"></div>
